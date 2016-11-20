@@ -155,7 +155,8 @@ The 'command' (if provided and valid) will be run instead of openvpn
     exit $RC
 }
 
-while getopts ":hdfp:r:t:v:" opt; do
+while getopts ":hdfp:r:t:v:c:" opt; do
+
     case "$opt" in
         h) usage ;;
         d) DNS=true ;;
@@ -176,6 +177,12 @@ shift $(( OPTIND - 1 ))
 [[ "${VPN:-""}" ]] && eval vpn $(sed 's/^\|$/"/g; s/;/" "/g' <<< $VPN)
 [[ "${DNS:-""}" ]] && dns
 [[ "${VPNPORT:-""}" ]] && vpnportforward "$VPNPORT"
+
+
+#Super hacky for now, but allows user to specify default config file
+#Config is expected to be in the same folder as vpn-ca.crt
+[[ "${CONFIG:-""}" ]] && eval cp /vpn/$CONFIG /vpn/vpn.conf
+# TODO: set set up autnetication so that you can send it in as an env variable
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
