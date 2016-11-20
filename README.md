@@ -116,6 +116,7 @@ ENVIRONMENT VARIABLES (only available with `docker run`)
  * `ROUTE` - As above, add a route to allow replies to your private network
  * `TZ` - As above, set a zoneinfo timezone, IE `EST5EDT`
  * `VPN` - As above, setup a VPN connection
+ * `CONFIG_FILE` - Name of a custom configuration file --expected to be in same directory as vpn.crt
 
 ## Examples
 
